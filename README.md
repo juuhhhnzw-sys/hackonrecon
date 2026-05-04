@@ -1,12 +1,21 @@
 # 👾 HackOn Recon
 
-### Automated Recon & Pentest Insight Platform
+### A modular, multi-threaded reconnaissance platform with plugin-based architecture and deterministic risk analysis.
 
 ## 📊 Dashboard Preview
 
 <p align="center">
   <img src="./docs/dashboard.png" width="800"/>
 </p>
+
+---
+
+## 💡 Why This Project
+
+This project demonstrates how real-world reconnaissance pipelines can be structured
+using modular architecture, parallel execution and deterministic analysis.
+
+It focuses on building systems, not just scripts.
 
 ---
 
@@ -30,7 +39,7 @@ It orchestrates multiple scanning modules in parallel, normalizes results into a
 
 ---
 
-## 🎶 Plugin System
+## 🧩 Plugin System
 
 HackOn uses a modular addon-based architecture where each scanning component
 operates independently and integrates into a unified pipeline.
@@ -39,8 +48,6 @@ operates independently and integrates into a unified pipeline.
 ## 🧩 Architecture
 
 ```bash
-
-Input → Orchestrator → Modules → Normalize → Score → Report
 
 Input (target)
  → Orchestrator
@@ -62,11 +69,12 @@ Input (target)
 ```json
 {
   "target": "example.com",
-  "ports": [80, 443],
+  "open_ports": [80, 443],
   "endpoints": [
-    { "path": "/admin", "status": 403 },
-    { "path": "/api", "status": 200 }
+    { "path": "/admin", "status": 403, "risk": "medium" },
+    { "path": "/api", "status": 200, "risk": "low" }
   ],
+  "subdomains": ["api.example.com"],
   "risk_score": 45,
   "severity": "medium"
 }
