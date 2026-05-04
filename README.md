@@ -3,7 +3,7 @@
 ### Automated Recon & Pentest Insight Platform
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/juuhhhnzw-sys/hackon-recon/main/dashboard.png" width="800"/>
+  <img src="https://raw.githubusercontent.com/juuhhhnzw-sys/hackon-recon/main/docs/dashboard.png" width="800"/>
 </p>
 
 ---
