@@ -1,0 +1,114 @@
+{
+  "target": "example.com",
+  "ports": [
+    {
+      "port": 80,
+      "status": "open",
+      "service_guess": "http"
+    },
+    {
+      "port": 443,
+      "status": "open",
+      "service_guess": "https"
+    },
+    {
+      "port": 6379,
+      "status": "open",
+      "service_guess": "redis"
+    }
+  ],
+  "http": [
+    {
+      "url": "https://example.com",
+      "status_code": 200,
+      "title": "Example Domain",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "text/html"
+      },
+      "server": "nginx"
+    },
+    {
+      "url": "https://api.example.com",
+      "status_code": 200,
+      "title": "API",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json"
+      },
+      "server": "nginx"
+    }
+  ],
+  "directories": [
+    {
+      "url": "https://example.com/admin",
+      "path": "/admin",
+      "status_code": 403
+    },
+    {
+      "url": "https://example.com/api",
+      "path": "/api",
+      "status_code": 200
+    }
+  ],
+  "subdomains": [
+    {
+      "subdomain": "www.example.com",
+      "resolved": true,
+      "ip": "93.184.216.34"
+    },
+    {
+      "subdomain": "api.example.com",
+      "resolved": true,
+      "ip": "93.184.216.34"
+    },
+    {
+      "subdomain": "dev.example.com",
+      "resolved": false,
+      "ip": null
+    },
+    {
+      "subdomain": "test.example.com",
+      "resolved": false,
+      "ip": null
+    }
+  ],
+  "findings": [
+    {
+      "type": "endpoint",
+      "value": "/admin",
+      "risk_score": 30,
+      "severity": "LOW",
+      "reason": "Sensitive endpoint exposed: /admin"
+    },
+    {
+      "type": "endpoint",
+      "value": "https://example.com/admin",
+      "risk_score": 55,
+      "severity": "MEDIUM",
+      "reason": "Received 403 (possible access control bypass potential)"
+    },
+    {
+      "type": "endpoint",
+      "value": "https://example.com/api",
+      "risk_score": 75,
+      "severity": "HIGH",
+      "reason": "Sensitive keyword detected in URL/path (api/dev/test)"
+    },
+    {
+      "type": "port",
+      "value": "6379",
+      "risk_score": 95,
+      "severity": "EXTREME",
+      "reason": "Uncommon service port open: 6379"
+    },
+    {
+      "type": "subdomain",
+      "value": "2",
+      "risk_score": 100,
+      "severity": "EXTREME",
+      "reason": "Multiple subdomains resolved (2) increases attack surface"
+    }
+  ],
+  "overall_risk": 100
+}
