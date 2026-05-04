@@ -1,0 +1,41 @@
+<svg width="800" height="200" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .bg { fill: #0d1117; }
+    .text { fill: #00ff9c; font-family: monospace; font-size: 20px; }
+    .cursor {
+      fill: #00ff9c;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50%, 100% { opacity: 1; }
+      25%, 75% { opacity: 0; }
+    }
+
+    .typing {
+      white-space: pre;
+      overflow: hidden;
+      border-right: 2px solid #00ff9c;
+      width: 0;
+      animation: typing 6s steps(40, end) infinite;
+    }
+
+    @keyframes typing {
+      0% { width: 0 }
+      40% { width: 500px }
+      60% { width: 500px }
+      100% { width: 0 }
+    }
+  </style>
+
+  <rect class="bg" width="100%" height="100%" />
+
+  <text x="20" y="80" class="text">&gt; juliano@dev:~$</text>
+
+  <foreignObject x="20" y="100" width="760" height="50">
+    <div xmlns="http://www.w3.org/1999/xhtml" class="text typing">
+      analyzing endpoints... scanning inputs... testing logic...
+      
+    </div>
+  </foreignObject>
+</svg>
