@@ -1,12 +1,69 @@
-# HackOn Recon — Automated Recon & Pentest Insight Platform
+# 👾 HackOn Recon
 
-**HackOn Recon** is a portfolio-grade, production-style recon and insight tool built for **authorized security testing** and education. It runs multiple recon modules in parallel, normalizes results into a unified schema, scores risk using deterministic rules, and generates:
+### Automated Recon & Pentest Insight Platform
 
-- JSON output
-- Markdown report
-- CLI visualization
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SEU_USUARIO/hackon-recon/main/docs/dashboard.png" width="800"/>
+</p>
 
-## Quick start
+---
+
+## 🧠 Overview
+
+HackOn Recon is a **modular reconnaissance and analysis platform** designed for authorized security testing and education.
+
+It orchestrates multiple scanning modules in parallel, normalizes results into a unified schema, applies deterministic risk scoring, and produces structured outputs for analysis.
+
+---
+
+## ⚙️ Key Features
+
+* ⚡ **Parallel scanning engine** (multithreaded execution)
+* 🧩 **Plugin-based architecture (addons)**
+* 📊 **Unified data normalization layer**
+* 🧠 **Deterministic risk scoring (0–100)**
+* 📄 **Automated report generation (JSON + Markdown)**
+* 🌐 **REST API (FastAPI)**
+* 💻 **Interactive dashboard (frontend)**
+
+---
+
+## 🧩 Architecture
+
+```bash
+Input (target)
+ → Orchestrator
+   → Modules (addons)
+     - Port Scanner
+     - HTTP Probe
+     - Dir Fuzzer
+     - Subdomain Enum
+   → Normalization Layer
+   → Risk Engine (0–100 scoring)
+   → Report Generator
+ → Output (JSON + Markdown + API)
+```
+
+---
+
+## 📊 Example Output
+
+```json
+{
+  "target": "example.com",
+  "ports": [80, 443],
+  "endpoints": [
+    { "path": "/admin", "status": 403 },
+    { "path": "/api", "status": 200 }
+  ],
+  "risk_score": 45,
+  "severity": "medium"
+}
+```
+
+---
+
+## 🚀 Quick Start
 
 ### 1) Install
 
@@ -16,26 +73,22 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-### 2) Run
+---
+
+### 2) Run CLI
 
 ```bash
 python -m hackon.backend.cli example.com --max-workers 6 --timeout 12
 ```
 
-Outputs are written to:
+Outputs:
 
-- `scans/` (JSON)
-- `reports/` (Markdown)
+* `scans/` → JSON
+* `reports/` → Markdown
 
-### 3) API bridge (FastAPI) + dashboard
+---
 
-Install API dependencies (included in `requirements.txt`):
-
-```bash
-pip install -r requirements.txt
-```
-
-Start the API (from the project root, with venv activated):
+### 3) API (FastAPI)
 
 ```bash
 python -m uvicorn hackon.backend.api.main:app --host 127.0.0.1 --port 8000
@@ -43,18 +96,15 @@ python -m uvicorn hackon.backend.api.main:app --host 127.0.0.1 --port 8000
 
 Endpoints:
 
-- `POST /api/scans` — body: `{ "target": "example.com", "max_workers": 6, "timeout": 12 }`
-- `GET /api/scans` — list scans
-- `GET /api/scans/{id}` — status (`queued` | `running` | `done` | `failed`)
-- `GET /api/scans/{id}/result` — full normalized JSON (+ `id` for the UI)
-- `GET /api/scans/{id}/report.md` — Markdown report file
+* `POST /api/scans`
+* `GET /api/scans`
+* `GET /api/scans/{id}`
+* `GET /api/scans/{id}/result`
+* `GET /api/scans/{id}/report.md`
 
-### 4) Frontend dashboard
+---
 
-Requires [Node.js LTS](https://nodejs.org/) (includes `npm`). The UI talks **only** to the real API (no mock).
-
-1. Start the API (step 3).
-2. Then:
+### 4) Dashboard
 
 ```bash
 cd frontend
@@ -63,69 +113,51 @@ npm install
 npm run dev
 ```
 
-`frontend/.env` must point at your API, for example:
+---
+
+## ⚙️ Environment
+
+| Variable            | Description          |
+| ------------------- | -------------------- |
+| VITE_API_BASE_URL   | API base URL         |
+| HACKON_CORS_ORIGINS | Optional CORS config |
+
+---
+
+## 📁 Project Structure
 
 ```bash
-VITE_API_BASE_URL=http://127.0.0.1:8000
-```
-
-On Windows PowerShell, if `cp` is unavailable:
-
-```powershell
-Copy-Item .env.example .env
-```
-
-## Environment variables
-
-| Where | Variable | Required | Description |
-|--------|-----------|----------|-------------|
-| `frontend/.env` | `VITE_API_BASE_URL` | Yes (for UI) | Base URL of the FastAPI server (no trailing slash). |
-| Server env | `HACKON_CORS_ORIGINS` | No | Comma-separated extra CORS origins (e.g. your deployed frontend). Local dev is covered by defaults. |
-
-Templates: root `.env.example` (backend notes) and `frontend/.env.example` (Vite).
-
-**Do not commit** `frontend/.env`, `.venv/`, `node_modules/`, or `scans/` — they are listed in `.gitignore`.
-
-## Publish to GitHub (portfolio)
-
-From the project root (after `.gitignore` is in place):
-
-```bash
-git init
-git add .
-git status   # confirm .venv, node_modules, scans, frontend/.env are NOT listed
-git commit -m "Initial commit: HackOn Recon platform"
-```
-
-Create an empty repository on GitHub, then:
-
-```bash
-git remote add origin https://github.com/SEU_USUARIO/hackon-recon.git
-git branch -M main
-git push -u origin main
-```
-
-Replace `SEU_USUARIO/hackon-recon` with your repo path.
-
-## Safety
-
-This project performs **recon only** (port checks, HTTP GET, directory discovery, subdomain enumeration) and does not include destructive exploitation or payload delivery.
-
-## Project layout
-
-Matches the required architecture:
-
-```
 hackon/
   backend/
-    api/main.py
-    core/orchestrator.py
+    api/
+    core/
     modules/
-    analyzer/risk_engine.py
-    report/generator.py
+    analyzer/
+    report/
     utils/
     cli.py
+
 scans/
 reports/
 ```
 
+---
+
+## 🔐 Safety
+
+This project is intended for **authorized testing and educational use only**.
+
+It performs **reconnaissance only** (no exploitation or payload delivery).
+
+---
+
+## 🎯 Purpose
+
+This project demonstrates:
+
+* System design thinking
+* Modular architecture
+* Backend + API integration
+* Real-world security tooling concepts
+
+---
