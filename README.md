@@ -2,6 +2,8 @@
 
 ### Automated Recon & Pentest Insight Platform
 
+## 📊 Dashboard Preview
+
 <p align="center">
   <img src="./docs/dashboard.png" width="800"/>
 </p>
@@ -28,9 +30,18 @@ It orchestrates multiple scanning modules in parallel, normalizes results into a
 
 ---
 
+## 🎶 Plugin System
+
+HackOn uses a modular addon-based architecture where each scanning component
+operates independently and integrates into a unified pipeline.
+
+---
 ## 🧩 Architecture
 
 ```bash
+
+Input → Orchestrator → Modules → Normalize → Score → Report
+
 Input (target)
  → Orchestrator
    → Modules (addons)
@@ -153,11 +164,7 @@ It performs **reconnaissance only** (no exploitation or payload delivery).
 
 ## 🎯 Purpose
 
-This project demonstrates:
-
-* System design thinking
-* Modular architecture
-* Backend + API integration
-* Real-world security tooling concepts
+This project was built to simulate a real-world reconnaissance pipeline,
+focusing on modular architecture, automation and structured analysis.
 
 ---
