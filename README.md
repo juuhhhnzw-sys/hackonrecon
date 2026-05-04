@@ -1,6 +1,6 @@
 # 👾 HackOn Recon
 
-### A modular, multi-threaded reconnaissance platform with plugin-based architecture and deterministic risk analysis.
+### Modular reconnaissance platform with multithreaded scanning, plugin architecture and deterministic risk analysis
 
 ## 📊 Dashboard Preview
 
@@ -48,7 +48,6 @@ operates independently and integrates into a unified pipeline.
 ## 🧩 Architecture
 
 ```bash
-
 Input (target)
  → Orchestrator
    → Modules (addons)
@@ -171,8 +170,6 @@ It performs **reconnaissance only** (no exploitation or payload delivery).
 ---
 
 ## 🎯 Purpose
-
-This project was built to simulate a real-world reconnaissance pipeline,
-focusing on modular architecture, automation and structured analysis.
+Designed to simulate real-world reconnaissance pipelines using modular and scalable architecture.
 
 ---
